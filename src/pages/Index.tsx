@@ -1,5 +1,5 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -81,14 +81,42 @@ const Index = () => {
     },
   };
 
+  React.useEffect(() => {
+    document.title = "Hackathon Tech Sprint 2025 — Inove e Construa";
+    const descName = "description";
+    let meta = document.querySelector(`meta[name="${descName}"]`) as HTMLMetaElement | null;
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = descName;
+      document.head.appendChild(meta);
+    }
+    meta.content = "Inscreva-se no Hackathon Tech Sprint 2025. 24h de inovação, prêmios, networking e aprendizado prático.";
+
+    let link = document.querySelector(`link[rel="canonical"]`) as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "canonical";
+      document.head.appendChild(link);
+    }
+    link.href = `${window.location.origin}/`;
+
+    const scriptId = "event-json-ld";
+    const prev = document.getElementById(scriptId);
+    if (prev) prev.remove();
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.id = scriptId;
+    script.textContent = JSON.stringify(jsonLd);
+    document.head.appendChild(script);
+
+    return () => {
+      const s = document.getElementById(scriptId);
+      if (s) s.remove();
+    };
+  }, []);
+
   return (
     <>
-      <Helmet>
-        <title>Hackathon Tech Sprint 2025 — Inove e Construa</title>
-        <meta name="description" content="Inscreva-se no Hackathon Tech Sprint 2025. 24h de inovação, prêmios, networking e aprendizado prático." />
-        <link rel="canonical" href="/" />
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      </Helmet>
 
       <header className="border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
         <nav className="container flex items-center justify-between h-16">
