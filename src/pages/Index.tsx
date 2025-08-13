@@ -2,14 +2,15 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
-import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-const eventStart = new Date("2025-09-01T00:00:00-03:00");
-const eventEnd = new Date("2025-09-26T23:59:59-03:00");
+const eventStart = new Date("2025-10-18T09:00:00-03:00");
+const eventEnd = new Date("2025-10-19T18:00:00-03:00");
 function useCountdown(target: Date) {
   const [timeLeft, setTimeLeft] = React.useState({
     days: 0,
@@ -48,18 +49,11 @@ const Index = () => {
     minutes,
     seconds
   } = useCountdown(eventStart);
-  const [parallax, setParallax] = React.useState({ x: 0, y: 0 });
-  const handleHeroMouseMove = React.useCallback((e: React.MouseEvent) => {
-    const { innerWidth, innerHeight } = window;
-    const x = (e.clientX / innerWidth - 0.5) * 40;
-    const y = (e.clientY / innerHeight - 0.5) * 40;
-    setParallax({ x, y });
-  }, []);
   const handleRegister: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     toast({
-      title: "Projeto submetido!",
-      description: "Recebemos seu projeto. Em breve entraremos em contato."
+      title: "Inscrição enviada!",
+      description: "Em breve entraremos em contato por e-mail."
     });
     (e.currentTarget as HTMLFormElement).reset();
   };
@@ -70,12 +64,20 @@ const Index = () => {
     description: "Participe do Hackathon Tech Sprint 2025: 24h de inovação, prêmios, networking e muito aprendizado.",
     startDate: eventStart.toISOString(),
     endDate: eventEnd.toISOString(),
-    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     image: ["/placeholder.svg"],
     location: {
-      "@type": "VirtualLocation",
-      url: typeof window !== "undefined" ? window.location.origin : "/"
+      "@type": "Place",
+      name: "São Paulo Expo",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Rod. dos Imigrantes, km 1,5",
+        addressLocality: "São Paulo",
+        addressRegion: "SP",
+        postalCode: "04329-900",
+        addressCountry: "BR"
+      }
     },
     organizer: {
       "@type": "Organization",
@@ -132,32 +134,16 @@ const Index = () => {
             <a href="#patrocinadores" className="text-muted-foreground hover:text-foreground">Patrocinadores</a>
             <a href="#faq" className="text-muted-foreground hover:text-foreground">FAQ</a>
           </div>
-          <Button asChild size="sm" variant="attention">
-            <a href="#inscricao">Submeter seu projeto</a>
+          <Button asChild size="sm">
+            <a href="#inscricao">Inscreva-se</a>
           </Button>
         </nav>
       </header>
 
       <main id="topo">
         {/* Hero */}
-        <section className="relative" onMouseMove={handleHeroMouseMove}>
+        <section className="relative">
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -z-10 left-1/4 top-8 h-40 w-40 rounded-full blur-3xl opacity-30"
-            style={{
-              transform: `translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
-              background: "radial-gradient(600px circle at center, hsl(var(--primary) / 0.35), transparent 60%)",
-            }}
-          />
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -z-10 right-10 bottom-0 h-56 w-56 rounded-full blur-3xl opacity-20"
-            style={{
-              transform: `translate3d(${parallax.x * -0.6}px, ${parallax.y * -0.6}px, 0)`,
-              background: "radial-gradient(520px circle at center, hsl(var(--primary) / 0.25), transparent 60%)",
-            }}
-          />
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
@@ -167,26 +153,41 @@ const Index = () => {
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 1–26 Set 2025</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 18–19 Out 2025</span>
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Clock className="h-4 w-4" /> 24 horas</span>
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><MapPin className="h-4 w-4" /> Online</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><MapPin className="h-4 w-4" /> São Paulo + Online</span>
               </div>
 
               {/* Countdown */}
-              <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
+              <div className="mt-8 grid grid-cols-4 max-w-md text-center">
+                {[{
+                label: "Dias",
+                value: days
+              }, {
+                label: "Horas",
+                value: hours
+              }, {
+                label: "Min",
+                value: minutes
+              }, {
+                label: "Seg",
+                value: seconds
+              }].map(t => <div key={t.label} className="p-3">
+                    <div className="text-3xl font-bold tabular-nums">{String(t.value).padStart(2, "0")}</div>
+                    <div className="text-xs text-muted-foreground">{t.label}</div>
+                  </div>)}
+              </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" variant="attention">
-                  <a href="#inscricao" className="inline-flex items-center gap-2">Submeter seu projeto <ArrowRight className="h-4 w-4" /></a>
+                <Button asChild size="lg">
+                  
                 </Button>
-                <Button variant="outline" asChild size="lg">
-                  <a href="#video" className="inline-flex items-center gap-2"><PlayCircle className="h-5 w-5" /> Ver vídeo</a>
-                </Button>
+                
               </div>
             </div>
 
             {/* Vídeo */}
-            <div id="video" className="hover-scale">
+            <div id="video">
               <AspectRatio ratio={16 / 9}>
                 <iframe className="h-full w-full rounded-md border" src="https://www.youtube.com/embed/ysz5S6PUM-U?rel=0" title="Vídeo do Hackathon Tech Sprint" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
               </AspectRatio>
@@ -272,45 +273,7 @@ const Index = () => {
 
         {/* Inscrição */}
         <section id="inscricao" className="container py-16 md:py-24">
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
-            <div>
-              <h2 className="text-3xl font-semibold tracking-tight">Submeter seu projeto</h2>
-              <p className="mt-2 text-muted-foreground">Garanta sua vaga gratuitamente. Vagas limitadas.</p>
-
-              <form onSubmit={handleRegister} className="mt-6 grid gap-4 max-w-md">
-                <Button type="submit" className="w-full" variant="attention">Submeter seu projeto</Button>
-              </form>
-
-              <div className="mt-8 flex items-center gap-4">
-                <span className="text-sm text-muted-foreground">Siga o evento:</span>
-                <div className="flex gap-3">
-                  <a href="#" aria-label="Twitter" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Twitter className="h-4 w-4" /></a>
-                  <a href="#" aria-label="Instagram" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Instagram className="h-4 w-4" /></a>
-                  <a href="#" aria-label="LinkedIn" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Linkedin className="h-4 w-4" /></a>
-                  <a href="#" aria-label="YouTube" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Youtube className="h-4 w-4" /></a>
-                </div>
-              </div>
-            </div>
-
-            {/* FAQs */}
-            <div id="faq">
-              <h2 className="text-3xl font-semibold tracking-tight">Perguntas Frequentes</h2>
-              <Accordion type="single" collapsible className="mt-6">
-                <AccordionItem value="q2">
-                  <AccordionTrigger>Preciso formar um time antes?</AccordionTrigger>
-                  <AccordionContent>Não. Teremos uma dinâmica de formação de times no início.</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="q3">
-                  <AccordionTrigger>Qual o nível de experiência necessário?</AccordionTrigger>
-                  <AccordionContent>Todos os níveis são bem-vindos. Haverá mentorias para apoiar os participantes.</AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="q4">
-                  <AccordionTrigger>O evento será presencial ou online?</AccordionTrigger>
-                  <AccordionContent>Formato híbrido: presencial em São Paulo e transmissão online.</AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
+          
         </section>
       </main>
 
