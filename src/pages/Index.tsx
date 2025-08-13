@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
+import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
 const eventStart = new Date("2025-09-01T00:00:00-03:00");
 const eventEnd = new Date("2025-09-26T23:59:59-03:00");
@@ -47,6 +48,13 @@ const Index = () => {
     minutes,
     seconds
   } = useCountdown(eventStart);
+  const [parallax, setParallax] = React.useState({ x: 0, y: 0 });
+  const handleHeroMouseMove = React.useCallback((e: React.MouseEvent) => {
+    const { innerWidth, innerHeight } = window;
+    const x = (e.clientX / innerWidth - 0.5) * 40;
+    const y = (e.clientY / innerHeight - 0.5) * 40;
+    setParallax({ x, y });
+  }, []);
   const handleRegister: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     toast({
@@ -124,7 +132,7 @@ const Index = () => {
             <a href="#patrocinadores" className="text-muted-foreground hover:text-foreground">Patrocinadores</a>
             <a href="#faq" className="text-muted-foreground hover:text-foreground">FAQ</a>
           </div>
-          <Button asChild size="sm">
+          <Button asChild size="sm" variant="attention">
             <a href="#inscricao">Submeter seu projeto</a>
           </Button>
         </nav>
@@ -132,8 +140,24 @@ const Index = () => {
 
       <main id="topo">
         {/* Hero */}
-        <section className="relative">
+        <section className="relative" onMouseMove={handleHeroMouseMove}>
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -z-10 left-1/4 top-8 h-40 w-40 rounded-full blur-3xl opacity-30"
+            style={{
+              transform: `translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
+              background: "radial-gradient(600px circle at center, hsl(var(--primary) / 0.35), transparent 60%)",
+            }}
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -z-10 right-10 bottom-0 h-56 w-56 rounded-full blur-3xl opacity-20"
+            style={{
+              transform: `translate3d(${parallax.x * -0.6}px, ${parallax.y * -0.6}px, 0)`,
+              background: "radial-gradient(520px circle at center, hsl(var(--primary) / 0.25), transparent 60%)",
+            }}
+          />
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
@@ -149,27 +173,10 @@ const Index = () => {
               </div>
 
               {/* Countdown */}
-              <div className="mt-8 grid grid-cols-4 max-w-md text-center">
-                {[{
-                label: "Dias",
-                value: days
-              }, {
-                label: "Horas",
-                value: hours
-              }, {
-                label: "Min",
-                value: minutes
-              }, {
-                label: "Seg",
-                value: seconds
-              }].map(t => <div key={t.label} className="p-3">
-                    <div className="text-3xl font-bold tabular-nums">{String(t.value).padStart(2, "0")}</div>
-                    <div className="text-xs text-muted-foreground">{t.label}</div>
-                  </div>)}
-              </div>
+              <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg">
+                <Button asChild size="lg" variant="attention">
                   <a href="#inscricao" className="inline-flex items-center gap-2">Submeter seu projeto <ArrowRight className="h-4 w-4" /></a>
                 </Button>
                 <Button variant="outline" asChild size="lg">
@@ -179,7 +186,7 @@ const Index = () => {
             </div>
 
             {/* Vídeo */}
-            <div id="video">
+            <div id="video" className="hover-scale">
               <AspectRatio ratio={16 / 9}>
                 <iframe className="h-full w-full rounded-md border" src="https://www.youtube.com/embed/ysz5S6PUM-U?rel=0" title="Vídeo do Hackathon Tech Sprint" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
               </AspectRatio>
@@ -271,7 +278,7 @@ const Index = () => {
               <p className="mt-2 text-muted-foreground">Garanta sua vaga gratuitamente. Vagas limitadas.</p>
 
               <form onSubmit={handleRegister} className="mt-6 grid gap-4 max-w-md">
-                <Button type="submit" className="w-full">Submeter seu projeto</Button>
+                <Button type="submit" className="w-full" variant="attention">Submeter seu projeto</Button>
               </form>
 
               <div className="mt-8 flex items-center gap-4">

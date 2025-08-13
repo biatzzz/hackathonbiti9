@@ -103,3 +103,49 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Flip clock styles */
+.flip-card-surface {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  box-shadow: 0 8px 20px -10px hsl(var(--primary) / 0.25);
+}
+.flip-top {
+  transform-origin: center bottom;
+  z-index: 2;
+}
+.flip-bottom {
+  transform-origin: center top;
+  z-index: 1;
+}
+
+@keyframes flipTop {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-90deg); }
+}
+@keyframes flipBottom {
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+.flip-top.is-animating { animation: flipTop 0.6s ease forwards; }
+.flip-bottom.is-animating { animation: flipBottom 0.6s ease forwards; }
+
+/* Hover scale utility */
+@layer utilities {
+  .hover-scale {
+    transition: transform 200ms ease;
+  }
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+}
