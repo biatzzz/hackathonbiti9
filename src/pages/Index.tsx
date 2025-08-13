@@ -2,15 +2,13 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-const eventStart = new Date("2025-10-18T09:00:00-03:00");
-const eventEnd = new Date("2025-10-19T18:00:00-03:00");
+const eventStart = new Date("2025-09-01T00:00:00-03:00");
+const eventEnd = new Date("2025-09-26T23:59:59-03:00");
 function useCountdown(target: Date) {
   const [timeLeft, setTimeLeft] = React.useState({
     days: 0,
@@ -52,8 +50,8 @@ const Index = () => {
   const handleRegister: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     toast({
-      title: "Inscrição enviada!",
-      description: "Em breve entraremos em contato por e-mail."
+      title: "Projeto submetido!",
+      description: "Recebemos seu projeto. Em breve entraremos em contato."
     });
     (e.currentTarget as HTMLFormElement).reset();
   };
@@ -64,20 +62,12 @@ const Index = () => {
     description: "Participe do Hackathon Tech Sprint 2025: 24h de inovação, prêmios, networking e muito aprendizado.",
     startDate: eventStart.toISOString(),
     endDate: eventEnd.toISOString(),
-    eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     image: ["/placeholder.svg"],
     location: {
-      "@type": "Place",
-      name: "São Paulo Expo",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Rod. dos Imigrantes, km 1,5",
-        addressLocality: "São Paulo",
-        addressRegion: "SP",
-        postalCode: "04329-900",
-        addressCountry: "BR"
-      }
+      "@type": "VirtualLocation",
+      url: typeof window !== "undefined" ? window.location.origin : "/"
     },
     organizer: {
       "@type": "Organization",
@@ -135,7 +125,7 @@ const Index = () => {
             <a href="#faq" className="text-muted-foreground hover:text-foreground">FAQ</a>
           </div>
           <Button asChild size="sm">
-            <a href="#inscricao">Inscreva-se</a>
+            <a href="#inscricao">Submeter seu projeto</a>
           </Button>
         </nav>
       </header>
@@ -153,9 +143,9 @@ const Index = () => {
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 18–19 Out 2025</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 1–26 Set 2025</span>
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Clock className="h-4 w-4" /> 24 horas</span>
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><MapPin className="h-4 w-4" /> São Paulo + Online</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><MapPin className="h-4 w-4" /> Online</span>
               </div>
 
               {/* Countdown */}
@@ -180,9 +170,11 @@ const Index = () => {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild size="lg">
-                  
+                  <a href="#inscricao" className="inline-flex items-center gap-2">Submeter seu projeto <ArrowRight className="h-4 w-4" /></a>
                 </Button>
-                
+                <Button variant="outline" asChild size="lg">
+                  <a href="#video" className="inline-flex items-center gap-2"><PlayCircle className="h-5 w-5" /> Ver vídeo</a>
+                </Button>
               </div>
             </div>
 
@@ -275,19 +267,11 @@ const Index = () => {
         <section id="inscricao" className="container py-16 md:py-24">
           <div className="grid lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 className="text-3xl font-semibold tracking-tight">Inscreva-se</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">Submeter seu projeto</h2>
               <p className="mt-2 text-muted-foreground">Garanta sua vaga gratuitamente. Vagas limitadas.</p>
 
               <form onSubmit={handleRegister} className="mt-6 grid gap-4 max-w-md">
-                <div className="grid gap-2">
-                  <Label htmlFor="nome">Nome</Label>
-                  <Input id="nome" name="nome" placeholder="Seu nome" required />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">E-mail</Label>
-                  <Input id="email" name="email" type="email" placeholder="voce@email.com" required />
-                </div>
-                <Button type="submit" className="w-full">Enviar inscrição</Button>
+                <Button type="submit" className="w-full">Submeter seu projeto</Button>
               </form>
 
               <div className="mt-8 flex items-center gap-4">
@@ -305,10 +289,6 @@ const Index = () => {
             <div id="faq">
               <h2 className="text-3xl font-semibold tracking-tight">Perguntas Frequentes</h2>
               <Accordion type="single" collapsible className="mt-6">
-                <AccordionItem value="q1">
-                  <AccordionTrigger>O evento é gratuito?</AccordionTrigger>
-                  <AccordionContent>Sim, a participação é 100% gratuita.</AccordionContent>
-                </AccordionItem>
                 <AccordionItem value="q2">
                   <AccordionTrigger>Preciso formar um time antes?</AccordionTrigger>
                   <AccordionContent>Não. Teremos uma dinâmica de formação de times no início.</AccordionContent>
