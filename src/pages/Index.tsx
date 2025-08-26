@@ -231,29 +231,25 @@ const Index = () => {
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {[{
-            time: "09:00",
-            title: "Abertura & Boas-vindas",
-            desc: "Credenciamento e apresentação das regras."
+            time: "A partir do dia 28 de agosto",
+            title: "Treinamento sobre IA no Nichoos",
+            desc: "Este treinamento opcional vai te ajudar a entender sobre IA!"
           }, {
-            time: "10:00",
-            title: "Workshop #1",
-            desc: "Boas práticas de prototipagem rápida."
+            time: "5 a 12 de setembro",
+            title: "Formação de grupos",
+            desc: "Forme um grupo de 3 pessoas. Conversem para encontrar um interesse em comum ou de alguém do grupo para criar uma solução com IA!"
           }, {
-            time: "12:30",
-            title: "Almoço",
-            desc: "Intervalo e networking."
+            time: "15 a 29 de setembro",
+            title: "Desenvolvimento do Hackathon",
+            desc: "Você irá receber suporte do comitê do Hackathon para desenvolver seu projeto e criar uma solução!"
           }, {
-            time: "14:00",
-            title: "Início do Hacking",
-            desc: "Formação dos times e kick-off."
+            time: "30 de Setembro",
+            title: "último dia para submeter seu projeto!",
+            desc: "Fique atento para não perder o prazo!"
           }, {
-            time: "20:00",
-            title: "Mentorias",
-            desc: "Sessões com especialistas."
-          }, {
-            time: "09:00 (Dia 2)",
-            title: "Pitch & Demonstrações",
-            desc: "Apresentação dos projetos finalistas."
+            time: "13 de outubro",
+            title: "Premiação!",
+            desc: "Após avaliação e a apuração, vamos premiar os 3 principais projetos!"
           }].map(a => <Card key={a.time}>
                 <CardHeader>
                   <CardTitle className="text-lg">{a.time} — {a.title}</CardTitle>
