@@ -25,7 +25,15 @@ function useCountdown(target: Date) {
       const targetTime = target.getTime();
       const difference = targetTime - now;
       
+      console.log("Debug countdown:", {
+        now: new Date(now).toLocaleString(),
+        target: new Date(targetTime).toLocaleString(),
+        difference,
+        hasStarted: difference <= 0
+      });
+      
       if (difference <= 0) {
+        console.log("Event has started!");
         setTimeLeft({
           days: 0,
           hours: 0,
@@ -40,6 +48,8 @@ function useCountdown(target: Date) {
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      
+      console.log("Calculated time:", { days, hours, minutes, seconds });
       
       setTimeLeft({
         days,
