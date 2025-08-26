@@ -8,8 +8,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-const eventStart = new Date("2025-09-15T00:00:00-03:00");
-const eventEnd = new Date("2025-09-30T23:59:59-03:00");
+const eventStart = new Date("2025-09-01T00:00:00-03:00");
+const eventEnd = new Date("2025-09-26T23:59:59-03:00");
 function useCountdown(target: Date) {
   const [timeLeft, setTimeLeft] = React.useState({
     days: 0,
@@ -162,23 +162,17 @@ const Index = () => {
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9 – Desafios em Inteligência Artificial</h1>
-              <p className="mt-4 text-muted-foreground text-lg">O futuro é agora! Transforme suas ideias com inteligência artificial em protótipos reais. Aprenda novas habilidades e concorra a prêmios incríveis!</p>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9</h1>
+              <p className="mt-4 text-muted-foreground text-lg">24 horas para transformar ideias em protótipos reais. Conecte-se com mentores, aprenda novas habilidades e concorra a prêmios incríveis.</p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 15 a 30 de setembro de 2025</span>
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Clock className="h-4 w-4" /> 15 dias</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 1–26 Set 2025</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Clock className="h-4 w-4" /> 24 horas</span>
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><MapPin className="h-4 w-4" /> Online</span>
               </div>
 
               {/* Countdown */}
-              {days === 0 && hours === 0 && minutes === 0 && seconds === 0 ? (
-                <div className="mt-8 text-center">
-                  <div className="text-3xl font-bold text-primary animate-pulse">Já começou!</div>
-                </div>
-              ) : (
-                <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
-              )}
+              <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild size="lg" variant="attention">
@@ -237,29 +231,25 @@ const Index = () => {
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {[{
-            time: "09:00",
-            title: "Abertura & Boas-vindas",
-            desc: "Credenciamento e apresentação das regras."
+            time: "A partir do dia 28 de agosto",
+            title: "Treinamento sobre IA no Nichoos",
+            desc: "Este treinamento opcional vai te ajudar a entender sobre IA!"
           }, {
-            time: "10:00",
-            title: "Workshop #1",
-            desc: "Boas práticas de prototipagem rápida."
+            time: "5 a 12 de setembro",
+            title: "Formação de grupos",
+            desc: "Forme um grupo de 3 pessoas. Conversem para encontrar um interesse em comum ou de alguém do grupo para criar uma solução com IA!"
           }, {
-            time: "12:30",
-            title: "Almoço",
-            desc: "Intervalo e networking."
+            time: "15 a 29 de setembro",
+            title: "Desenvolvimento do Hackathon",
+            desc: "Você irá receber suporte do comitê do Hackathon para desenvolver seu projeto e criar uma solução!"
           }, {
-            time: "14:00",
-            title: "Início do Hacking",
-            desc: "Formação dos times e kick-off."
+            time: "30 de Setembro",
+            title: "último dia para submeter seu projeto!",
+            desc: "Fique atento para não perder o prazo!"
           }, {
-            time: "20:00",
-            title: "Mentorias",
-            desc: "Sessões com especialistas."
-          }, {
-            time: "09:00 (Dia 2)",
-            title: "Pitch & Demonstrações",
-            desc: "Apresentação dos projetos finalistas."
+            time: "13 de outubro",
+            title: "Premiação!",
+            desc: "Após avaliação e a apuração, vamos premiar os 3 principais projetos!"
           }].map(a => <Card key={a.time}>
                 <CardHeader>
                   <CardTitle className="text-lg">{a.time} — {a.title}</CardTitle>
