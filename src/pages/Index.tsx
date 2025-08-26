@@ -48,12 +48,21 @@ const Index = () => {
     minutes,
     seconds
   } = useCountdown(eventStart);
-  const [parallax, setParallax] = React.useState({ x: 0, y: 0 });
+  const [parallax, setParallax] = React.useState({
+    x: 0,
+    y: 0
+  });
   const handleHeroMouseMove = React.useCallback((e: React.MouseEvent) => {
-    const { innerWidth, innerHeight } = window;
+    const {
+      innerWidth,
+      innerHeight
+    } = window;
     const x = (e.clientX / innerWidth - 0.5) * 40;
     const y = (e.clientY / innerHeight - 0.5) * 40;
-    setParallax({ x, y });
+    setParallax({
+      x,
+      y
+    });
   }, []);
   const handleRegister: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -125,11 +134,11 @@ const Index = () => {
 
       <header className="border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
         <nav className="container flex items-center justify-between h-16">
-          <a href="#topo" className="font-semibold">Tech Sprint</a>
+          <a href="#topo" className="font-semibold">Hackathon Biti9</a>
           <div className="hidden md:flex gap-6 text-sm">
             <a href="#beneficios" className="text-muted-foreground hover:text-foreground">Benefícios</a>
             <a href="#agenda" className="text-muted-foreground hover:text-foreground">Agenda</a>
-            <a href="#patrocinadores" className="text-muted-foreground hover:text-foreground">Patrocinadores</a>
+            
             <a href="#faq" className="text-muted-foreground hover:text-foreground">FAQ</a>
           </div>
           <Button asChild size="sm" variant="attention">
@@ -142,29 +151,19 @@ const Index = () => {
         {/* Hero */}
         <section className="relative" onMouseMove={handleHeroMouseMove}>
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -z-10 left-1/4 top-8 h-40 w-40 rounded-full blur-3xl opacity-30"
-            style={{
-              transform: `translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
-              background: "radial-gradient(600px circle at center, hsl(var(--primary) / 0.35), transparent 60%)",
-            }}
-          />
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -z-10 right-10 bottom-0 h-56 w-56 rounded-full blur-3xl opacity-20"
-            style={{
-              transform: `translate3d(${parallax.x * -0.6}px, ${parallax.y * -0.6}px, 0)`,
-              background: "radial-gradient(520px circle at center, hsl(var(--primary) / 0.25), transparent 60%)",
-            }}
-          />
+          <span aria-hidden className="pointer-events-none absolute -z-10 left-1/4 top-8 h-40 w-40 rounded-full blur-3xl opacity-30" style={{
+          transform: `translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
+          background: "radial-gradient(600px circle at center, hsl(var(--primary) / 0.35), transparent 60%)"
+        }} />
+          <span aria-hidden className="pointer-events-none absolute -z-10 right-10 bottom-0 h-56 w-56 rounded-full blur-3xl opacity-20" style={{
+          transform: `translate3d(${parallax.x * -0.6}px, ${parallax.y * -0.6}px, 0)`,
+          background: "radial-gradient(520px circle at center, hsl(var(--primary) / 0.25), transparent 60%)"
+        }} />
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Tech Sprint 2025</h1>
-              <p className="mt-4 text-muted-foreground text-lg">
-                24 horas para transformar ideias em protótipos reais. Conecte-se com mentores, aprenda novas habilidades e concorra a prêmios incríveis.
-              </p>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9</h1>
+              <p className="mt-4 text-muted-foreground text-lg">24 horas para transformar ideias em protótipos reais. Conecte-se com mentores, aprenda novas habilidades e concorra a prêmios incríveis.</p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 1–26 Set 2025</span>
@@ -275,21 +274,13 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-10 items-start">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight">Submeter seu projeto</h2>
-              <p className="mt-2 text-muted-foreground">Garanta sua vaga gratuitamente. Vagas limitadas.</p>
+              <p className="mt-2 text-muted-foreground">Para todos os colaboradores Biti9!</p>
 
               <form onSubmit={handleRegister} className="mt-6 grid gap-4 max-w-md">
                 <Button type="submit" className="w-full" variant="attention">Submeter seu projeto</Button>
               </form>
 
-              <div className="mt-8 flex items-center gap-4">
-                <span className="text-sm text-muted-foreground">Siga o evento:</span>
-                <div className="flex gap-3">
-                  <a href="#" aria-label="Twitter" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Twitter className="h-4 w-4" /></a>
-                  <a href="#" aria-label="Instagram" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Instagram className="h-4 w-4" /></a>
-                  <a href="#" aria-label="LinkedIn" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Linkedin className="h-4 w-4" /></a>
-                  <a href="#" aria-label="YouTube" className="inline-flex h-9 w-9 items-center justify-center rounded-md border hover:bg-accent"><Youtube className="h-4 w-4" /></a>
-                </div>
-              </div>
+              
             </div>
 
             {/* FAQs */}
@@ -316,11 +307,11 @@ const Index = () => {
 
       <footer className="border-t">
         <div className="container py-10 text-sm text-muted-foreground flex flex-col md:flex-row items-center justify-between gap-4">
-          <p>&copy; {new Date().getFullYear()} Tech Sprint. Todos os direitos reservados.</p>
+          
           <nav className="flex gap-6">
             <a href="#beneficios" className="hover:text-foreground">Benefícios</a>
             <a href="#agenda" className="hover:text-foreground">Agenda</a>
-            <a href="#patrocinadores" className="hover:text-foreground">Patrocinadores</a>
+            
             <a href="#faq" className="hover:text-foreground">FAQ</a>
           </nav>
         </div>
