@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-const eventStart = new Date("2025-09-15T00:00:00-03:00");
+const eventStart = new Date("2025-09-15T09:00:00-03:00");
 const eventEnd = new Date("2025-09-26T23:59:59-03:00");
 function useCountdown(target: Date) {
   const [timeLeft, setTimeLeft] = React.useState({
@@ -18,12 +18,14 @@ function useCountdown(target: Date) {
     seconds: 0,
     hasStarted: false
   });
+  
   React.useEffect(() => {
-    const tick = () => {
+    const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const distance = target.getTime() - now;
+      const targetTime = target.getTime();
+      const difference = targetTime - now;
       
-      if (distance <= 0) {
+      if (difference <= 0) {
         setTimeLeft({
           days: 0,
           hours: 0,
@@ -34,10 +36,11 @@ function useCountdown(target: Date) {
         return;
       }
       
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
-      const minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
-      const seconds = Math.floor(distance % (1000 * 60) / 1000);
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      
       setTimeLeft({
         days,
         hours,
@@ -46,10 +49,13 @@ function useCountdown(target: Date) {
         hasStarted: false
       });
     };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
+    
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000);
+    
+    return () => clearInterval(interval);
   }, [target]);
+  
   return timeLeft;
 }
 const Index = () => {
@@ -187,14 +193,19 @@ const Index = () => {
               </div>
 
               {/* Countdown */}
-              {hasStarted ? (
-                <div className="mt-8 text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-primary">Já começou!</div>
-                  <div className="text-sm text-muted-foreground mt-1">O hackathon está em andamento</div>
-                </div>
-              ) : (
-                <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
-              )}
+              <div className="mt-8">
+                {hasStarted ? (
+                  <div className="text-center bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg p-6 border">
+                    <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">🚀 Já começou!</div>
+                    <div className="text-sm text-muted-foreground">O hackathon está em andamento</div>
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <div className="text-sm text-muted-foreground mb-3">Faltam para o início:</div>
+                    <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
+                  </div>
+                )}
+              </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild size="lg" variant="attention">
