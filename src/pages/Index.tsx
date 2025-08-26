@@ -8,8 +8,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-const eventStart = new Date("2025-09-01T00:00:00-03:00");
-const eventEnd = new Date("2025-09-26T23:59:59-03:00");
+const eventStart = new Date("2025-09-15T00:00:00-03:00");
+const eventEnd = new Date("2025-09-30T23:59:59-03:00");
 function useCountdown(target: Date) {
   const [timeLeft, setTimeLeft] = React.useState({
     days: 0,
@@ -162,17 +162,23 @@ const Index = () => {
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight"></h1>
-              <p className="mt-4 text-muted-foreground text-lg">Hackathon Biti9 – Desafios em Inteligência Artificial</p>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9 – Desafios em Inteligência Artificial</h1>
+              <p className="mt-4 text-muted-foreground text-lg">O futuro é agora! Transforme suas ideias com inteligência artificial em protótipos reais. Aprenda novas habilidades e concorra a prêmios incríveis!</p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 1–26 Set 2025</span>
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Clock className="h-4 w-4" /> 24 horas</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 15 a 30 de setembro de 2025</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Clock className="h-4 w-4" /> 15 dias</span>
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><MapPin className="h-4 w-4" /> Online</span>
               </div>
 
               {/* Countdown */}
-              <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
+              {days === 0 && hours === 0 && minutes === 0 && seconds === 0 ? (
+                <div className="mt-8 text-center">
+                  <div className="text-3xl font-bold text-primary animate-pulse">Já começou!</div>
+                </div>
+              ) : (
+                <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
+              )}
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild size="lg" variant="attention">
