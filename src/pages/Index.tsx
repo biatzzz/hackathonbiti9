@@ -162,8 +162,8 @@ const Index = () => {
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9</h1>
-              <p className="mt-4 text-muted-foreground text-lg">24 horas para transformar ideias em protótipos reais. Conecte-se com mentores, aprenda novas habilidades e concorra a prêmios incríveis.</p>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight"></h1>
+              <p className="mt-4 text-muted-foreground text-lg">Hackathon Biti9 – Desafios em Inteligência Artificial</p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 1–26 Set 2025</span>
@@ -231,25 +231,29 @@ const Index = () => {
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {[{
-            time: "A partir do dia 28 de agosto",
-            title: "Treinamento sobre IA no Nichoos",
-            desc: "Este treinamento opcional vai te ajudar a entender sobre IA!"
+            time: "09:00",
+            title: "Abertura & Boas-vindas",
+            desc: "Credenciamento e apresentação das regras."
           }, {
-            time: "5 a 12 de setembro",
-            title: "Formação de grupos",
-            desc: "Forme um grupo de 3 pessoas. Conversem para encontrar um interesse em comum ou de alguém do grupo para criar uma solução com IA!"
+            time: "10:00",
+            title: "Workshop #1",
+            desc: "Boas práticas de prototipagem rápida."
           }, {
-            time: "15 a 29 de setembro",
-            title: "Desenvolvimento do Hackathon",
-            desc: "Você irá receber suporte do comitê do Hackathon para desenvolver seu projeto e criar uma solução!"
+            time: "12:30",
+            title: "Almoço",
+            desc: "Intervalo e networking."
           }, {
-            time: "30 de Setembro",
-            title: "último dia para submeter seu projeto!",
-            desc: "Fique atento para não perder o prazo!"
+            time: "14:00",
+            title: "Início do Hacking",
+            desc: "Formação dos times e kick-off."
           }, {
-            time: "13 de outubro",
-            title: "Premiação!",
-            desc: "Após avaliação e a apuração, vamos premiar os 3 principais projetos!"
+            time: "20:00",
+            title: "Mentorias",
+            desc: "Sessões com especialistas."
+          }, {
+            time: "09:00 (Dia 2)",
+            title: "Pitch & Demonstrações",
+            desc: "Apresentação dos projetos finalistas."
           }].map(a => <Card key={a.time}>
                 <CardHeader>
                   <CardTitle className="text-lg">{a.time} — {a.title}</CardTitle>
