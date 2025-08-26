@@ -8,19 +8,32 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-const eventStart = new Date("2025-09-01T00:00:00-03:00");
+const eventStart = new Date("2025-09-15T00:00:00-03:00");
 const eventEnd = new Date("2025-09-26T23:59:59-03:00");
 function useCountdown(target: Date) {
   const [timeLeft, setTimeLeft] = React.useState({
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0
+    seconds: 0,
+    hasStarted: false
   });
   React.useEffect(() => {
     const tick = () => {
       const now = new Date().getTime();
-      const distance = Math.max(0, target.getTime() - now);
+      const distance = target.getTime() - now;
+      
+      if (distance <= 0) {
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          hasStarted: true
+        });
+        return;
+      }
+      
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
       const minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
@@ -29,7 +42,8 @@ function useCountdown(target: Date) {
         days,
         hours,
         minutes,
-        seconds
+        seconds,
+        hasStarted: false
       });
     };
     tick();
@@ -46,7 +60,8 @@ const Index = () => {
     days,
     hours,
     minutes,
-    seconds
+    seconds,
+    hasStarted
   } = useCountdown(eventStart);
   const [parallax, setParallax] = React.useState({
     x: 0,
@@ -101,7 +116,7 @@ const Index = () => {
     }
   };
   React.useEffect(() => {
-    document.title = "Hackathon Tech Sprint 2025 — Inove e Construa";
+    document.title = "Hackathon Biti9 – Desafios em Inteligência Artificial";
     const descName = "description";
     let meta = document.querySelector(`meta[name="${descName}"]`) as HTMLMetaElement | null;
     if (!meta) {
@@ -109,7 +124,7 @@ const Index = () => {
       meta.name = descName;
       document.head.appendChild(meta);
     }
-    meta.content = "Inscreva-se no Hackathon Tech Sprint 2025. 24h de inovação, prêmios, networking e aprendizado prático.";
+    meta.content = "O futuro é agora! Transforme suas ideias com inteligência artificial em protótipos reais. Aprenda novas habilidades e concorra a prêmios incríveis!";
     let link = document.querySelector(`link[rel="canonical"]`) as HTMLLinkElement | null;
     if (!link) {
       link = document.createElement("link");
@@ -162,17 +177,24 @@ const Index = () => {
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9</h1>
-              <p className="mt-4 text-muted-foreground text-lg">24 horas para transformar ideias em protótipos reais. Conecte-se com mentores, aprenda novas habilidades e concorra a prêmios incríveis.</p>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9 – Desafios em Inteligência Artificial</h1>
+              <p className="mt-4 text-muted-foreground text-lg">O futuro é agora! Transforme suas ideias com inteligência artificial em protótipos reais. Aprenda novas habilidades e concorra a prêmios incríveis!</p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
-                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 1–26 Set 2025</span>
+                <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Calendar className="h-4 w-4" /> 15 a 30 de setembro de 2025</span>
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><Clock className="h-4 w-4" /> 24 horas</span>
                 <span className="inline-flex items-center gap-2 rounded-md border px-3 py-1.5"><MapPin className="h-4 w-4" /> Online</span>
               </div>
 
               {/* Countdown */}
-              <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
+              {hasStarted ? (
+                <div className="mt-8 text-center">
+                  <div className="text-2xl sm:text-3xl font-bold text-primary">Já começou!</div>
+                  <div className="text-sm text-muted-foreground mt-1">O hackathon está em andamento</div>
+                </div>
+              ) : (
+                <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
+              )}
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild size="lg" variant="attention">
