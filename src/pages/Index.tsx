@@ -291,7 +291,7 @@ const Index = () => {
           
           <div className="max-w-4xl mx-auto">
             <AspectRatio ratio={16 / 9}>
-              <iframe className="h-full w-full rounded-lg border shadow-lg" src="https://www.youtube.com/embed/ysz5S6PUM-U?rel=0" title="Como criar soluções com Inteligência Artificial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+              <iframe className="h-full w-full rounded-lg border shadow-lg" src="https://drive.google.com/file/d/1IDggVO7pTJyofAEBGV6ni3UmsTWVIP-f/preview" title="Como criar soluções com Inteligência Artificial" loading="lazy" allow="autoplay" allowFullScreen />
             </AspectRatio>
           </div>
         </section>
