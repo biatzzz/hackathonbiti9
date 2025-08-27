@@ -20,13 +20,11 @@ function useCountdown() {
     seconds: 0,
     isFinished: false
   });
-  
   React.useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
       const endTime = hackathonEnd.getTime();
       const difference = endTime - now;
-      
       if (difference <= 0) {
         setTimeLeft({
           days: 0,
@@ -37,12 +35,10 @@ function useCountdown() {
         });
         return;
       }
-      
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-      
+      const hours = Math.floor(difference % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+      const minutes = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60));
+      const seconds = Math.floor(difference % (1000 * 60) / 1000);
       setTimeLeft({
         days,
         hours,
@@ -51,13 +47,10 @@ function useCountdown() {
         isFinished: false
       });
     };
-    
     calculateTimeLeft();
     const interval = setInterval(calculateTimeLeft, 1000);
-    
     return () => clearInterval(interval);
   }, []);
-  
   return timeLeft;
 }
 const Index = () => {
@@ -196,17 +189,13 @@ const Index = () => {
 
               {/* Countdown */}
               <div className="mt-8">
-                {isFinished ? (
-                  <div className="text-center bg-gradient-to-r from-destructive/20 to-destructive/10 rounded-lg p-6 border">
+                {isFinished ? <div className="text-center bg-gradient-to-r from-destructive/20 to-destructive/10 rounded-lg p-6 border">
                     <div className="text-3xl sm:text-4xl font-bold text-destructive mb-2">⏰ Tempo encerrado!</div>
                     <div className="text-sm text-muted-foreground">O período do hackathon foi finalizado</div>
-                  </div>
-                ) : (
-                  <div className="text-center">
+                  </div> : <div className="text-center">
                     <div className="text-sm text-muted-foreground mb-3">Tempo restante:</div>
                     <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
-                  </div>
-                )}
+                  </div>}
               </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -302,14 +291,7 @@ const Index = () => {
           
           <div className="max-w-4xl mx-auto">
             <AspectRatio ratio={16 / 9}>
-              <iframe 
-                className="h-full w-full rounded-lg border shadow-lg" 
-                src="https://www.youtube.com/embed/ysz5S6PUM-U?rel=0" 
-                title="Como criar soluções com Inteligência Artificial" 
-                loading="lazy" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowFullScreen 
-              />
+              <iframe className="h-full w-full rounded-lg border shadow-lg" src="https://www.youtube.com/embed/ysz5S6PUM-U?rel=0" title="Como criar soluções com Inteligência Artificial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
             </AspectRatio>
           </div>
         </section>
@@ -322,7 +304,7 @@ const Index = () => {
           
           <div className="max-w-3xl mx-auto">
             <Card>
-              <CardContent className="p-8">
+              <CardContent className="p-8 bg-[#c3c8e5]/[0.33]">
                 <ul className="space-y-4 text-lg">
                   <li className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-3"></span>
@@ -351,31 +333,31 @@ const Index = () => {
         </section>
 
         {/* Prêmios */}
-        <section id="premios" className="container py-16 md:py-24">
+        <section id="premios" className="container py-16 md:py-24 bg-[#000a00]/0">
           <h2 className="text-3xl font-semibold tracking-tight">Prêmios e Reconhecimento</h2>
           <p className="mt-2 text-muted-foreground">Reconhecimento e premiação para os melhores projetos.</p>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[{
-              place: "🥇 1º Lugar",
-              prize: "premio a definir",
-              gradient: "from-yellow-400/20 to-yellow-600/20",
-              border: "border-yellow-400/50",
-              shadow: "hover:shadow-yellow-400/20"
-            }, {
-              place: "🥈 2º Lugar", 
-              prize: "premio a definir",
-              gradient: "from-slate-400/20 to-slate-600/20",
-              border: "border-slate-400/50",
-              shadow: "hover:shadow-slate-400/20"
-            }, {
-              place: "🥉 3º Lugar",
-              prize: "premio a definir", 
-              gradient: "from-amber-600/20 to-amber-800/20",
-              border: "border-amber-600/50",
-              shadow: "hover:shadow-amber-600/20"
-            }].map(p => <Card key={p.place} className={`transition-all duration-300 hover:scale-105 hover:shadow-xl ${p.shadow} ${p.border} bg-gradient-to-br ${p.gradient}`}>
-                <CardHeader className="text-center">
+            place: "🥇 1º Lugar",
+            prize: "premio a definir",
+            gradient: "from-yellow-400/20 to-yellow-600/20",
+            border: "border-yellow-400/50",
+            shadow: "hover:shadow-yellow-400/20"
+          }, {
+            place: "🥈 2º Lugar",
+            prize: "premio a definir",
+            gradient: "from-slate-400/20 to-slate-600/20",
+            border: "border-slate-400/50",
+            shadow: "hover:shadow-slate-400/20"
+          }, {
+            place: "🥉 3º Lugar",
+            prize: "premio a definir",
+            gradient: "from-amber-600/20 to-amber-800/20",
+            border: "border-amber-600/50",
+            shadow: "hover:shadow-amber-600/20"
+          }].map(p => <Card key={p.place} className={`transition-all duration-300 hover:scale-105 hover:shadow-xl ${p.shadow} ${p.border} bg-gradient-to-br ${p.gradient}`}>
+                <CardHeader className="text-center bg-[#000a00]/0">
                   <CardTitle className="text-xl">{p.place}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
