@@ -294,6 +294,62 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Vídeo */}
+        <section className="container py-16 md:py-24">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-semibold tracking-tight">Veja como é fácil criar uma solução com IA</h2>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <AspectRatio ratio={16 / 9}>
+              <iframe 
+                className="h-full w-full rounded-lg border shadow-lg" 
+                src="https://www.youtube.com/embed/ysz5S6PUM-U?rel=0" 
+                title="Como criar soluções com Inteligência Artificial" 
+                loading="lazy" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowFullScreen 
+              />
+            </AspectRatio>
+          </div>
+        </section>
+
+        {/* Tema do Desafio */}
+        <section className="container py-16 md:py-24">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-semibold tracking-tight">Desafio 2025: Inteligência Artificial para Produtividade no Trabalho</h2>
+          </div>
+          
+          <div className="max-w-3xl mx-auto">
+            <Card>
+              <CardContent className="p-8">
+                <ul className="space-y-4 text-lg">
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-3"></span>
+                    <span>Criar um agente inteligente que execute funções</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-3"></span>
+                    <span>Desenvolver aplicativo que otimize processos</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-3"></span>
+                    <span>Aplicar IA para melhorar qualidade do trabalho</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-3"></span>
+                    <span>Criar solução que automatize tarefas repetitivas</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-3"></span>
+                    <span>Incentivar a criatividade para soluções inovadoras</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* Prêmios */}
         <section id="premios" className="container py-16 md:py-24">
           <h2 className="text-3xl font-semibold tracking-tight">Prêmios e Reconhecimento</h2>
