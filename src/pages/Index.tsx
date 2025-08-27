@@ -169,7 +169,7 @@ const Index = () => {
           <div className="hidden md:flex gap-6 text-sm">
             <a href="#beneficios" className="text-muted-foreground hover:text-foreground">Benefícios</a>
             <a href="#agenda" className="text-muted-foreground hover:text-foreground">Agenda</a>
-            
+            <a href="#premios" className="text-muted-foreground hover:text-foreground">Prêmios</a>
             <a href="#faq" className="text-muted-foreground hover:text-foreground">FAQ</a>
           </div>
           <Button asChild size="sm" variant="attention">
@@ -193,7 +193,7 @@ const Index = () => {
           <div className="container py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-3">Edição 2025</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9 – Desafios em Inteligência Artificial</h1>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Hackathon Biti9</h1>
               <p className="mt-4 text-muted-foreground text-lg">O futuro é agora! Transforme suas ideias com inteligência artificial em protótipos reais. Aprenda novas habilidades e concorra a prêmios incríveis!</p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm">
@@ -274,25 +274,25 @@ const Index = () => {
 
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {[{
-            time: "A partir do dia 28 de agosto",
-            title: "Treinamento sobre IA no Nichoos",
-            desc: "Este treinamento opcional vai te ajudar a entender sobre IA!"
+            time: "15/09",
+            title: "Início do Hackathon",
+            desc: "Abertura oficial do hackathon e início do desenvolvimento dos projetos."
           }, {
-            time: "5 a 12 de setembro",
-            title: "Formação de grupos",
-            desc: "Forme um grupo de 3 pessoas. Conversem para encontrar um interesse em comum ou de alguém do grupo para criar uma solução com IA!"
+            time: "15/09 até 29/09",
+            title: "Desenvolvimento e Mentoria",
+            desc: "Período de desenvolvimento dos projetos com suporte e mentoria do comitê organizador."
           }, {
-            time: "15 a 29 de setembro",
-            title: "Desenvolvimento do Hackathon",
-            desc: "Você irá receber suporte do comitê do Hackathon para desenvolver seu projeto e criar uma solução!"
+            time: "29/09",
+            title: "Fim do Hackathon e Entrega dos Projetos",
+            desc: "Prazo final para submissão dos projetos desenvolvidos durante o hackathon."
           }, {
-            time: "30 de Setembro",
-            title: "último dia para submeter seu projeto!",
-            desc: "Fique atento para não perder o prazo!"
+            time: "30/09 até 10/10",
+            title: "Avaliação e Apuração dos Projetos",
+            desc: "Período de análise e avaliação dos projetos submetidos pelos jurados."
           }, {
-            time: "13 de outubro",
-            title: "Premiação!",
-            desc: "Após avaliação e a apuração, vamos premiar os 3 principais projetos!"
+            time: "13/10",
+            title: "Premiação dos Vencedores (Presencial)",
+            desc: "Cerimônia de premiação presencial para anunciar e premiar os vencedores."
           }].map(a => <Card key={a.time}>
                 <CardHeader>
                   <CardTitle className="text-lg">{a.time} — {a.title}</CardTitle>
@@ -302,11 +302,40 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Patrocinadores */}
-        
+        {/* Prêmios */}
+        <section id="premios" className="container py-16 md:py-24">
+          <h2 className="text-3xl font-semibold tracking-tight">Prêmios e Reconhecimento</h2>
+          <p className="mt-2 text-muted-foreground">Reconhecimento e premiação para os melhores projetos.</p>
 
-        {/* Testemunhos */}
-        
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {[{
+              place: "🥇 1º Lugar",
+              prize: "premio a definir",
+              gradient: "from-yellow-400/20 to-yellow-600/20",
+              border: "border-yellow-400/50",
+              shadow: "hover:shadow-yellow-400/20"
+            }, {
+              place: "🥈 2º Lugar", 
+              prize: "premio a definir",
+              gradient: "from-slate-400/20 to-slate-600/20",
+              border: "border-slate-400/50",
+              shadow: "hover:shadow-slate-400/20"
+            }, {
+              place: "🥉 3º Lugar",
+              prize: "premio a definir", 
+              gradient: "from-amber-600/20 to-amber-800/20",
+              border: "border-amber-600/50",
+              shadow: "hover:shadow-amber-600/20"
+            }].map(p => <Card key={p.place} className={`transition-all duration-300 hover:scale-105 hover:shadow-xl ${p.shadow} ${p.border} bg-gradient-to-br ${p.gradient}`}>
+                <CardHeader className="text-center">
+                  <CardTitle className="text-xl">{p.place}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-muted-foreground">{p.prize}</p>
+                </CardContent>
+              </Card>)}
+          </div>
+        </section>
 
         {/* Inscrição */}
         <section id="inscricao" className="container py-16 md:py-24">
@@ -350,7 +379,7 @@ const Index = () => {
           <nav className="flex gap-6">
             <a href="#beneficios" className="hover:text-foreground">Benefícios</a>
             <a href="#agenda" className="hover:text-foreground">Agenda</a>
-            
+            <a href="#premios" className="hover:text-foreground">Prêmios</a>
             <a href="#faq" className="hover:text-foreground">FAQ</a>
           </nav>
         </div>
