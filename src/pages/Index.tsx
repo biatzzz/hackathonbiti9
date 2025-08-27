@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
+// Data de início: 15 de setembro de 2025
 const hackathonStart = new Date("2025-09-15T09:00:00-03:00");
 const hackathonEnd = new Date(hackathonStart.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 dias após o início
 
