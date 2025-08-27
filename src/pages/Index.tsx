@@ -8,8 +8,11 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-// Data de início: 15 de setembro de 2025 - Cache refresh: 2025-01-27
-const hackathonStart = new Date("2025-09-15T09:00:00-03:00");
+// Timer para teste: inicia às 14:30 de hoje (Brasília)
+const today = new Date();
+const hackathonStart = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 30, 0);
+// Ajustar para fuso de Brasília (-3 horas UTC)
+hackathonStart.setHours(hackathonStart.getHours() + 3);
 const hackathonEnd = new Date(hackathonStart.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 dias após o início
 
 function useCountdown() {
@@ -20,10 +23,26 @@ function useCountdown() {
     seconds: 0,
     isFinished: false
   });
+  
   React.useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
+      const startTime = hackathonStart.getTime();
       const endTime = hackathonEnd.getTime();
+      
+      // Se ainda não chegou no horário de início, mostrar zeros
+      if (now < startTime) {
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          isFinished: false
+        });
+        return;
+      }
+      
+      // Se passou do fim, mostrar como encerrado
       const difference = endTime - now;
       if (difference <= 0) {
         setTimeLeft({
@@ -35,10 +54,13 @@ function useCountdown() {
         });
         return;
       }
+      
+      // Calcular tempo restante
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor(difference % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
       const minutes = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60));
       const seconds = Math.floor(difference % (1000 * 60) / 1000);
+      
       setTimeLeft({
         days,
         hours,
@@ -47,10 +69,12 @@ function useCountdown() {
         isFinished: false
       });
     };
+    
     calculateTimeLeft();
     const interval = setInterval(calculateTimeLeft, 1000);
     return () => clearInterval(interval);
   }, []);
+  
   return timeLeft;
 }
 const Index = () => {
