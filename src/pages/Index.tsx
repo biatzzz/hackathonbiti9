@@ -8,38 +8,31 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { FlipClock } from "@/components/FlipClock";
 import { Calendar, MapPin, Clock, Trophy, Users, GraduationCap, ArrowRight, Twitter, Instagram, Linkedin, Youtube, PlayCircle } from "lucide-react";
-const eventStart = new Date("2025-09-15T09:00:00-03:00");
-const eventEnd = new Date("2025-09-26T23:59:59-03:00");
-function useCountdown(target: Date) {
+const hackathonStart = new Date("2025-09-15T09:00:00-03:00");
+const hackathonEnd = new Date(hackathonStart.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 dias após o início
+
+function useCountdown() {
   const [timeLeft, setTimeLeft] = React.useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
-    hasStarted: false
+    isFinished: false
   });
   
   React.useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const targetTime = target.getTime();
-      const difference = targetTime - now;
-      
-      console.log("Debug countdown:", {
-        now: new Date(now).toLocaleString(),
-        target: new Date(targetTime).toLocaleString(),
-        difference,
-        hasStarted: difference <= 0
-      });
+      const endTime = hackathonEnd.getTime();
+      const difference = endTime - now;
       
       if (difference <= 0) {
-        console.log("Event has started!");
         setTimeLeft({
           days: 0,
           hours: 0,
           minutes: 0,
           seconds: 0,
-          hasStarted: true
+          isFinished: true
         });
         return;
       }
@@ -49,14 +42,12 @@ function useCountdown(target: Date) {
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
       
-      console.log("Calculated time:", { days, hours, minutes, seconds });
-      
       setTimeLeft({
         days,
         hours,
         minutes,
         seconds,
-        hasStarted: false
+        isFinished: false
       });
     };
     
@@ -64,7 +55,7 @@ function useCountdown(target: Date) {
     const interval = setInterval(calculateTimeLeft, 1000);
     
     return () => clearInterval(interval);
-  }, [target]);
+  }, []);
   
   return timeLeft;
 }
@@ -77,8 +68,8 @@ const Index = () => {
     hours,
     minutes,
     seconds,
-    hasStarted
-  } = useCountdown(eventStart);
+    isFinished
+  } = useCountdown();
   const [parallax, setParallax] = React.useState({
     x: 0,
     y: 0
@@ -106,10 +97,10 @@ const Index = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: "Hackathon Tech Sprint 2025",
-    description: "Participe do Hackathon Tech Sprint 2025: 24h de inovação, prêmios, networking e muito aprendizado.",
-    startDate: eventStart.toISOString(),
-    endDate: eventEnd.toISOString(),
+    name: "Hackathon Biti9",
+    description: "Participe do Hackathon Biti9: 14 dias de inovação, prêmios, networking e muito aprendizado.",
+    startDate: hackathonStart.toISOString(),
+    endDate: hackathonEnd.toISOString(),
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     image: ["/placeholder.svg"],
@@ -204,14 +195,14 @@ const Index = () => {
 
               {/* Countdown */}
               <div className="mt-8">
-                {hasStarted ? (
-                  <div className="text-center bg-gradient-to-r from-primary/20 to-primary/10 rounded-lg p-6 border">
-                    <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">🚀 Já começou!</div>
-                    <div className="text-sm text-muted-foreground">O hackathon está em andamento</div>
+                {isFinished ? (
+                  <div className="text-center bg-gradient-to-r from-destructive/20 to-destructive/10 rounded-lg p-6 border">
+                    <div className="text-3xl sm:text-4xl font-bold text-destructive mb-2">⏰ Tempo encerrado!</div>
+                    <div className="text-sm text-muted-foreground">O período do hackathon foi finalizado</div>
                   </div>
                 ) : (
                   <div className="text-center">
-                    <div className="text-sm text-muted-foreground mb-3">Faltam para o início:</div>
+                    <div className="text-sm text-muted-foreground mb-3">Tempo restante:</div>
                     <FlipClock days={days} hours={hours} minutes={minutes} seconds={seconds} />
                   </div>
                 )}
